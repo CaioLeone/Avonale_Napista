@@ -12,5 +12,14 @@ namespace Napista.Models
         public DateTime Data_expedicao { get; set; }
         public string Bandeira { get; set; }
         public int Cvv { get; set; }
+
+        public Cartao(string titular, int numero, DateTime data_expedicao, string bandeira, int cvv)
+        {
+            Titular = titular;
+            Numero = numero;
+            Data_expedicao = data_expedicao;
+            Bandeira = bandeira;
+            Cvv = cvv;
+        }
     }
 }
