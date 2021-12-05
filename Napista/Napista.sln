@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Napista", "Napista\Napista.csproj", "{839BD43D-5843-43FB-95CE-10EA058DFA55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Napista", "Napista\Napista.csproj", "{D043DC28-A8BE-4EDB-AAFE-2C9EF14AEDAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{839BD43D-5843-43FB-95CE-10EA058DFA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{839BD43D-5843-43FB-95CE-10EA058DFA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{839BD43D-5843-43FB-95CE-10EA058DFA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{839BD43D-5843-43FB-95CE-10EA058DFA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D043DC28-A8BE-4EDB-AAFE-2C9EF14AEDAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D043DC28-A8BE-4EDB-AAFE-2C9EF14AEDAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D043DC28-A8BE-4EDB-AAFE-2C9EF14AEDAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D043DC28-A8BE-4EDB-AAFE-2C9EF14AEDAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {11C50DD7-242E-428D-A238-6AEA5AFDC2CA}
+		SolutionGuid = {184F2C2A-1321-474B-999B-B10FC237275F}
 	EndGlobalSection
 EndGlobal
