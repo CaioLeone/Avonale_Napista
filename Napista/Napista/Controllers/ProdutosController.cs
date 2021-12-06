@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Napista.Data;
+using Napista.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Napista.Models;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Napista.Controllers
 {
@@ -12,34 +14,54 @@ namespace Napista.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private static List<Produtos> produtos = new List<Produtos>()
-        {
-            new Produtos(){Nome = "Machado Duplo", Valor_unitario = 50 ,Qtde_estoque = 5},
-            new Produtos(){Nome = "Clava", Valor_unitario = 75, Qtde_estoque = 3 }
-        };
+        private ApiDbConteudo _dbConteudo;
 
+        public ProdutosController(ApiDbConteudo dbConteudo)
+        {
+            _dbConteudo = dbConteudo;
+        }
+
+        // GET: api/<ProdutosController>
         [HttpGet]
         public IEnumerable<Produtos> Get()
         {
-            return produtos;
+            return _dbConteudo.Produtos;
         }
 
+        // GET api/<ProdutosController>/5
+        [HttpGet("{id}")]
+        public Produtos Get(int id)
+        {
+            var produto = _dbConteudo.Produtos.Find(id);
+            return produto;
+        }
+
+        // POST api/<ProdutosController>
         [HttpPost]
         public void Post([FromBody] Produtos produto)
         {
-            produtos.Add(produto);
+            _dbConteudo.Produtos.Add(produto);
+            _dbConteudo.SaveChanges();
         }
 
+        // PUT api/<ProdutosController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Produtos produto)
         {
-            produtos[id] = produto;
+            var prod = _dbConteudo.Produtos.Find(id);
+            prod.Nome = produto.Nome;
+            prod.Valor_unitario = produto.Valor_unitario;
+            prod.Qtde_estoque = produto.Qtde_estoque;
+            _dbConteudo.SaveChanges();
         }
 
+        // DELETE api/<ProdutosController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id) 
+        public void Delete(int id)
         {
-            produtos.RemoveAt(id);
+            var produto = _dbConteudo.Produtos.Find(id);
+            _dbConteudo.Produtos.Remove(produto);
+            _dbConteudo.SaveChanges();
         }
     }
 }
