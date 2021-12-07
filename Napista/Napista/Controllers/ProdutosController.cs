@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Napista.Data;
 using Napista.Models;
 using System;
@@ -23,45 +24,73 @@ namespace Napista.Controllers
 
         // GET: api/<ProdutosController>
         [HttpGet]
-        public IEnumerable<Produtos> Get()
+        public async Task<IActionResult> Get()
         {
-            return _dbConteudo.Produtos;
+            return Ok(await _dbConteudo.Produtos.ToListAsync());
         }
 
         // GET api/<ProdutosController>/5
         [HttpGet("{id}")]
-        public Produtos Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var produto = _dbConteudo.Produtos.Find(id);
-            return produto;
+            var produto = await _dbConteudo.Produtos.FindAsync(id);
+            if (produto == null)
+            {
+                return NotFound("Ocorreu um erro desconhecido");
+            }
+            else
+            {
+                return Ok(produto);
+            }
         }
 
         // POST api/<ProdutosController>
         [HttpPost]
-        public void Post([FromBody] Produtos produto)
+        public async Task<IActionResult> Post([FromBody] Produtos produto)
         {
-            _dbConteudo.Produtos.Add(produto);
-            _dbConteudo.SaveChanges();
+            await _dbConteudo.Produtos.AddAsync(produto);
+            if (produto != null ) 
+            {
+                return NotFound("Ocorreu um erro desconhecido");
+            }
+            await _dbConteudo.SaveChangesAsync();
+            return Ok("Produto Cadastrado.");
         }
 
         // PUT api/<ProdutosController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Produtos produto)
+        public async Task<IActionResult> Put(int id, [FromBody] Produtos produto)
         {
-            var prod = _dbConteudo.Produtos.Find(id);
-            prod.Nome = produto.Nome;
-            prod.Valor_unitario = produto.Valor_unitario;
-            prod.Qtde_estoque = produto.Qtde_estoque;
-            _dbConteudo.SaveChanges();
+            var prod = await _dbConteudo.Produtos.FindAsync(id);
+            if (produto == null)
+            {
+                return NotFound("Valores Informados não são validos.");
+            }
+            else
+            {
+                prod.Nome = produto.Nome;
+                prod.Valor_unitario = produto.Valor_unitario;
+                prod.Qtde_estoque = produto.Qtde_estoque;
+                await _dbConteudo.SaveChangesAsync();
+                return Ok("Produto Alterado Com Sucesso.");
+            }
         }
 
         // DELETE api/<ProdutosController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var produto = _dbConteudo.Produtos.Find(id);
-            _dbConteudo.Produtos.Remove(produto);
-            _dbConteudo.SaveChanges();
+            var produto = await _dbConteudo.Produtos.FindAsync(id);
+            if (produto == null)
+            {
+                return NotFound("Ocorreu um erro desconhecido");
+            }
+            else
+            {
+                _dbConteudo.Produtos.Remove(produto);
+                await _dbConteudo.SaveChangesAsync();
+                return Ok("Protudo excluido Com Sucesso");
+            }
         }
     }
 }

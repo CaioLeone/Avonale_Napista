@@ -10,8 +10,14 @@ namespace Napista.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required(ErrorMessage = " Nome do produto deve ser preenchido")]
         public string Nome { get; set; }
+
+        [Required(ErrorMessage = " Valor do produto deve ser preenchido")]
         public float Valor_unitario { get; set; }
+
+        [Required(ErrorMessage = " Quantidade do produto deve ser preenchido")]
         public int Qtde_estoque { get; set; }
 
         public Produtos()
