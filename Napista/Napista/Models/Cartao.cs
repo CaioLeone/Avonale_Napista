@@ -8,11 +8,15 @@ namespace Napista.Models
 {
     public class Cartao
     {
+        [Required]
         public string Titular { get; set; }
         [Key]
         public int Numero { get; set; }
+        [Required]
         public DateTime Data_expedicao { get; set; }
+        [Required]
         public string Bandeira { get; set; }
+        [Required]
         public int Cvv { get; set; }
     }
 }

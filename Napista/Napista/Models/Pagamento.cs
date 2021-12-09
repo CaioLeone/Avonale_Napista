@@ -10,6 +10,9 @@ namespace Napista.Models
     {
         [Key]
         public int Id_Pagamento { get; set; }
-        public ICollection<Cartao> Cartoes { get; set; }
+        [Required]
+        public double Valor { get; set; }
+        [Required]
+        public Cartao Cartao { get; set; }
     }
 }

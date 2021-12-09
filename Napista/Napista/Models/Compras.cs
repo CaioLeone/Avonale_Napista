@@ -9,11 +9,11 @@ namespace Napista.Models
     public class Compras
     {
         [Key]
-        public int Id_Compra { get; set; }
+        public int Produto_Id { get; set; }
+        [Required]
         public int Qtde_comprada { get; set; }
+        [Required]
         public Cartao Cartao { get; set; }
-        public ICollection<Produtos> Produto { get; set; }
-        public ICollection<Pagamento> Pagamentos { get; set; }
-
+        
     }
 }

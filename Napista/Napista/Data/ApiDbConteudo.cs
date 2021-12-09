@@ -18,5 +18,6 @@ namespace Napista.Data
         public DbSet<Compras> Compras { get; set; }
         public DbSet<Cartao> Cartao { get; set; }
         public DbSet<Pagamento> Pagamento { get; set; }
+
     }
 }

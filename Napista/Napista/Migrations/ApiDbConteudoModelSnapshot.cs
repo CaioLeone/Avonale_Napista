@@ -27,6 +27,7 @@ namespace Napista.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Bandeira")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Cvv")
@@ -35,22 +36,18 @@ namespace Napista.Migrations
                     b.Property<DateTime>("Data_expedicao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PagamentoId_Pagamento")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titular")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Numero");
-
-                    b.HasIndex("PagamentoId_Pagamento");
 
                     b.ToTable("Cartao");
                 });
 
             modelBuilder.Entity("Napista.Models.Compras", b =>
                 {
-                    b.Property<int>("Id_Compra")
+                    b.Property<int>("Produto_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -61,7 +58,7 @@ namespace Napista.Migrations
                     b.Property<int>("Qtde_comprada")
                         .HasColumnType("int");
 
-                    b.HasKey("Id_Compra");
+                    b.HasKey("Produto_Id");
 
                     b.HasIndex("CartaoNumero");
 
@@ -75,12 +72,15 @@ namespace Napista.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ComprasId_Compra")
+                    b.Property<int?>("CartaoNumero")
                         .HasColumnType("int");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
 
                     b.HasKey("Id_Pagamento");
 
-                    b.HasIndex("ComprasId_Compra");
+                    b.HasIndex("CartaoNumero");
 
                     b.ToTable("Pagamento");
                 });
@@ -92,10 +92,11 @@ namespace Napista.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("ComprasId_Compra")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Data_venda")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Qtde_estoque")
@@ -104,18 +105,12 @@ namespace Napista.Migrations
                     b.Property<float>("Valor_unitario")
                         .HasColumnType("real");
 
+                    b.Property<float>("Valor_venda")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ComprasId_Compra");
-
                     b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("Napista.Models.Cartao", b =>
-                {
-                    b.HasOne("Napista.Models.Pagamento", null)
-                        .WithMany("Cartoes")
-                        .HasForeignKey("PagamentoId_Pagamento");
                 });
 
             modelBuilder.Entity("Napista.Models.Compras", b =>
@@ -129,28 +124,11 @@ namespace Napista.Migrations
 
             modelBuilder.Entity("Napista.Models.Pagamento", b =>
                 {
-                    b.HasOne("Napista.Models.Compras", null)
-                        .WithMany("Pagamentos")
-                        .HasForeignKey("ComprasId_Compra");
-                });
+                    b.HasOne("Napista.Models.Cartao", "Cartao")
+                        .WithMany()
+                        .HasForeignKey("CartaoNumero");
 
-            modelBuilder.Entity("Napista.Models.Produtos", b =>
-                {
-                    b.HasOne("Napista.Models.Compras", null)
-                        .WithMany("Produto")
-                        .HasForeignKey("ComprasId_Compra");
-                });
-
-            modelBuilder.Entity("Napista.Models.Compras", b =>
-                {
-                    b.Navigation("Pagamentos");
-
-                    b.Navigation("Produto");
-                });
-
-            modelBuilder.Entity("Napista.Models.Pagamento", b =>
-                {
-                    b.Navigation("Cartoes");
+                    b.Navigation("Cartao");
                 });
 #pragma warning restore 612, 618
         }
