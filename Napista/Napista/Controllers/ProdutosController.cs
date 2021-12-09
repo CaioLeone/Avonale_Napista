@@ -14,12 +14,13 @@ namespace Napista.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
+        //Variavel de Conexão com o banco de dados
         private ApiDbConteudo _dbConteudo;
 
         public ProdutosController(ApiDbConteudo dbConteudo) {
             _dbConteudo = dbConteudo;
         }
-        //Pesquisar Produtos
+        //Metodo Get para Listar Todos os Produtos pelo nome, valor unitario e quantidade de estoque
         // GET: api/<ProdutosController>
         [HttpGet]
         public async Task<IActionResult> GetProduto()
@@ -34,7 +35,7 @@ namespace Napista.Controllers
             return Ok(produto);
         }
        
-        //Pesquiser produtos detalhados
+        //Metodo Get para Pesquisar produtos de forma detalhada, mostrando todas variaveis da Classe
         [HttpGet("[action]")]
         public IActionResult ProdutosDetalhes(int id)
         {
@@ -48,6 +49,7 @@ namespace Napista.Controllers
             }
         }
         
+        //Metodo Post para adição de produto, utilizando validação
         // POST api/<ProdutosController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Produtos produto)
@@ -66,6 +68,8 @@ namespace Napista.Controllers
             return Ok("Produto Cadastrado.");
         }
 
+        //Metodo Delete para remoção de um elemento pelo ID informado, Caso o ID nao existe, uma
+        //mensagem de erro irá aparecer
         // DELETE api/<ProdutosController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

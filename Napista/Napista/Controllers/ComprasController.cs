@@ -13,6 +13,7 @@ namespace Napista.Controllers
     [ApiController]
     public class ComprasController : ControllerBase
     {
+        //Variavel de Conexão com o banco de dados
         private ApiDbConteudo _dbConteudo;
 
         public ComprasController(ApiDbConteudo dbConteudo) 
@@ -20,6 +21,7 @@ namespace Napista.Controllers
             _dbConteudo = dbConteudo;
         }
 
+        //Metodo HTTP Post para adição de Compras, utilizando validação de dados
         // POST api/<ComprasController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Compras compra)
