@@ -18,8 +18,7 @@ namespace Napista.Models
         public int Qtde_estoque { get; set; }
         [Required]
         public float Valor_venda { get; set; }
-        [Required]
-        public DateTime Data_venda { get; set; }
+        public DateTime? Data_venda { get; set; }
 
     }
 }

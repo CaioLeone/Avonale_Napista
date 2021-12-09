@@ -24,19 +24,15 @@ namespace Napista.Controllers
         
         //EndPoint POST api/<PagamentoController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Pagamento pagamento)
+        public IActionResult Post([FromBody] Pagamento pagamento)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            await _dbConteudo.Pagamento.AddAsync(pagamento);
-            if (pagamento != null)
+            
+            _dbConteudo.Pagamento.AddAsync(pagamento);
+            if (pagamento == null)
             {
                 return NotFound("Ocorreu um erro desconhecido");
             }
-            await _dbConteudo.SaveChangesAsync();
+            _dbConteudo.SaveChangesAsync();
             return Ok("Pagamento Cadastrado.");
         }
     }

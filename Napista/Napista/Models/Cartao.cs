@@ -11,7 +11,7 @@ namespace Napista.Models
         [Required]
         public string Titular { get; set; }
         [Key]
-        public int Numero { get; set; }
+        public double Numero { get; set; }
         [Required]
         public DateTime Data_expedicao { get; set; }
         [Required]

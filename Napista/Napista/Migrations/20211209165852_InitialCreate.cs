@@ -11,8 +11,7 @@ namespace Napista.Migrations
                 name: "Cartao",
                 columns: table => new
                 {
-                    Numero = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Numero = table.Column<double>(type: "float", nullable: false),
                     Titular = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Data_expedicao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Bandeira = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -33,7 +32,7 @@ namespace Napista.Migrations
                     Valor_unitario = table.Column<float>(type: "real", nullable: false),
                     Qtde_estoque = table.Column<int>(type: "int", nullable: false),
                     Valor_venda = table.Column<float>(type: "real", nullable: false),
-                    Data_venda = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Data_venda = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +46,7 @@ namespace Napista.Migrations
                     Produto_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Qtde_comprada = table.Column<int>(type: "int", nullable: false),
-                    CartaoNumero = table.Column<int>(type: "int", nullable: true)
+                    CartaoNumero = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,7 +66,7 @@ namespace Napista.Migrations
                     Id_Pagamento = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Valor = table.Column<double>(type: "float", nullable: false),
-                    CartaoNumero = table.Column<int>(type: "int", nullable: true)
+                    CartaoNumero = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {

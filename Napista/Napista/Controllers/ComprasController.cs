@@ -24,18 +24,15 @@ namespace Napista.Controllers
         //Metodo HTTP Post para adição de Compras, utilizando validação de dados
         // POST api/<ComprasController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Compras compra)
+        public IActionResult Post([FromBody] Compras compra)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await _dbConteudo.Compras.AddAsync(compra);
-            if (compra != null)
+            
+            _dbConteudo.Compras.AddAsync(compra);
+            if (compra == null)
             {
                 return NotFound("Ocorreu um erro desconhecido");
             }
-            await _dbConteudo.SaveChangesAsync();
+            _dbConteudo.SaveChangesAsync();
             return Ok("Compra Cadastrado.");
         }
     }

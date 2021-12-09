@@ -17,7 +17,8 @@ namespace Napista.Controllers
         //Variavel de Conexão com o banco de dados
         private ApiDbConteudo _dbConteudo;
 
-        public ProdutosController(ApiDbConteudo dbConteudo) {
+        public ProdutosController(ApiDbConteudo dbConteudo)
+        {
             _dbConteudo = dbConteudo;
         }
         //Metodo Get para Listar Todos os Produtos pelo nome, valor unitario e quantidade de estoque
@@ -26,46 +27,34 @@ namespace Napista.Controllers
         public async Task<IActionResult> GetProduto()
         {
             var produto = await (from produtos in _dbConteudo.Produtos
-                          select new
-                          {
-                              Nome = produtos.Nome,
-                              Valor_unitario = produtos.Valor_unitario,
-                              Qtde_estoque = produtos.Qtde_estoque
-                          }).ToListAsync();
+                                 select new
+                                 {
+                                     Nome = produtos.Nome,
+                                     Valor_unitario = produtos.Valor_unitario,
+                                     Qtde_estoque = produtos.Qtde_estoque
+                                 }).ToListAsync();
             return Ok(produto);
         }
-       
+
         //Metodo Get para Pesquisar produtos de forma detalhada, mostrando todas variaveis da Classe
         [HttpGet("[action]")]
         public IActionResult ProdutosDetalhes(int id)
         {
             var produtosDetalhes = _dbConteudo.Produtos.FindAsync(id);
-            if (produtosDetalhes != null)
-            {
-                return NotFound("Ocorreu um erro desconhecido");
-            }
-            else {
-                return Ok(produtosDetalhes); 
-            }
+            return Ok(produtosDetalhes);
         }
-        
+
         //Metodo Post para adição de produto, utilizando validação
         // POST api/<ProdutosController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Produtos produto)
+        public IActionResult Post([FromBody] Produtos produtos) 
         {
-            if (!ModelState.IsValid) 
-            {
-                return BadRequest(ModelState);
-            }
-
-            await _dbConteudo.Produtos.AddAsync(produto);
-            if (produto != null)
-            {
+            _dbConteudo.Produtos.AddAsync(produtos);
+            if (produtos == null) {
                 return NotFound("Ocorreu um erro desconhecido");
             }
-            await _dbConteudo.SaveChangesAsync();
-            return Ok("Produto Cadastrado.");
+            _dbConteudo.SaveChangesAsync();
+            return Ok("Produto Cadastrado");
         }
 
         //Metodo Delete para remoção de um elemento pelo ID informado, Caso o ID nao existe, uma

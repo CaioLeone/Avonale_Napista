@@ -21,10 +21,8 @@ namespace Napista.Migrations
 
             modelBuilder.Entity("Napista.Models.Cartao", b =>
                 {
-                    b.Property<int>("Numero")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<double>("Numero")
+                        .HasColumnType("float");
 
                     b.Property<string>("Bandeira")
                         .IsRequired()
@@ -52,8 +50,8 @@ namespace Napista.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CartaoNumero")
-                        .HasColumnType("int");
+                    b.Property<double?>("CartaoNumero")
+                        .HasColumnType("float");
 
                     b.Property<int>("Qtde_comprada")
                         .HasColumnType("int");
@@ -72,8 +70,8 @@ namespace Napista.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CartaoNumero")
-                        .HasColumnType("int");
+                    b.Property<double?>("CartaoNumero")
+                        .HasColumnType("float");
 
                     b.Property<double>("Valor")
                         .HasColumnType("float");
@@ -92,7 +90,7 @@ namespace Napista.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("Data_venda")
+                    b.Property<DateTime?>("Data_venda")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
